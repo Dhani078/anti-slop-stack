@@ -1,0 +1,21 @@
+name: "Feature request"
+description: "Suggest a new rule or purifier idea for anti-slop-stack"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: Have an idea to detect new AI slop patterns? Let us know!
+  - type: textarea
+    id: problem
+    attributes:
+      label: What AI slop pattern does this solve?
+      description: Describe the repetitive or bloated code pattern.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution / Rule
+      description: How should anti-slop-stack detect or clean it?
+    validations:
+      required: true

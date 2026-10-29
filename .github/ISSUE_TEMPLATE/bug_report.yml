@@ -1,0 +1,21 @@
+name: "Bug report"
+description: "Create a report to help us improve anti-slop-stack"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting a bug! Please fill out the details below.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What bug or false positive occurred?
+    validations:
+      required: true
+  - type: textarea
+    id: sample-code
+    attributes:
+      label: Sample Code
+      description: The code or prose that triggered the unexpected behavior.
+    validations:
+      required: true

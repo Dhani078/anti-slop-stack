@@ -21,6 +21,14 @@
     "hermes-agent",
     "agent-skills"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dhani078/anti-slop-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dhani078/anti-slop-stack/issues"
+  },
+  "homepage": "https://github.com/Dhani078/anti-slop-stack#readme",
   "author": "Dhani078",
   "license": "MIT",
   "engines": {
