@@ -1,0 +1,29 @@
+{
+  "ignore": [
+    "tests/fixtures/**",
+    "vendor/**",
+    "*.min.js"
+  ],
+  "rules": {
+    "codeSlop": {
+      "narrativeComments": true,
+      "swallowedExceptions": true,
+      "unsafeTypeCasts": true,
+      "leftoverDebugCalls": true,
+      "destructiveErrorWrapping": true
+    },
+    "bloatSlop": {
+      "maxLOC": 250,
+      "speculativeInterfaces": true,
+      "redundantPassThrough": true
+    },
+    "uiSlop": {
+      "aiGenericGlow": true,
+      "horizontalOverflow": true
+    },
+    "proseSlop": {
+      "buzzwords": true,
+      "throatClearing": true
+    }
+  }
+}

@@ -42,7 +42,19 @@ Output structured findings for CI/CD dashboards or Git pre-commit hooks:
 npx anti-slop json src/
 ```
 
-### 4. CI Quality Gate
+### 4. Custom Configuration (`.antisloprc.json`)
+Configure thresholds and toggle rules per repository:
+```json
+{
+  "rules": {
+    "bloatSlop": {
+      "maxLOC": 200
+    }
+  }
+}
+```
+
+### 5. CI Quality Gate
 Fails the build with exit code `1` if high-severity violations exist:
 ```bash
 npx anti-slop ci src/

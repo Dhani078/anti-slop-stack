@@ -1,15 +1,15 @@
-function scanBloatSlop(filePath, content) {
+function scanBloatSlop(filePath, content, customMaxLOC = 250) {
   const issues = [];
   const lines = content.split('\n');
 
-  // 1. File size check (Senior rule: LOC <= 200)
-  if (lines.length > 250) {
+  // 1. File size check (Senior rule: LOC <= 200/250)
+  if (lines.length > customMaxLOC) {
     issues.push({
       file: filePath,
       line: lines.length,
       type: 'OVERSIZED_GOD_FILE',
       severity: 'HIGH',
-      message: `File exceeds modular size (${lines.length} lines > 200 LOC ceiling). Modularize or distill responsibilities.`,
+      message: `File exceeds modular size (${lines.length} lines > ${customMaxLOC} LOC ceiling). Modularize or distill responsibilities.`,
       sample: `Total lines: ${lines.length}`
     });
   }

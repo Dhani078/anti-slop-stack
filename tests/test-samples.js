@@ -42,7 +42,12 @@ function wrapper(a, b) {
 `;
 const bloatIssues = scanBloatSlop('service.ts', bloatCode);
 assert.strictEqual(bloatIssues.length, 2, 'Should detect speculative interface and redundant wrapper');
-console.log('✓ Architecture Bloat scanner passed');
+
+// Test custom LOC configuration limit
+const longCode = Array(300).fill('const a = 1;').join('\n');
+const locIssues = scanBloatSlop('long.ts', longCode, 200);
+assert.strictEqual(locIssues.length, 1, 'Should detect oversized file with custom maxLOC');
+console.log('✓ Architecture Bloat scanner passed (with custom maxLOC support)');
 
 // 4. Test UI Slop
 const dirtyCSS = `

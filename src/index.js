@@ -22,8 +22,22 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
   return arrayOfFiles;
 }
 
+function loadConfig(rootDir) {
+  const configPath = path.join(rootDir, '.antisloprc.json');
+  if (fs.existsSync(configPath)) {
+    try {
+      return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 function runAnalysis(targetDir) {
   const resolvedTarget = path.resolve(targetDir || '.');
+  const config = loadConfig(fs.statSync(resolvedTarget).isDirectory() ? resolvedTarget : path.dirname(resolvedTarget));
+  
   const files = fs.statSync(resolvedTarget).isDirectory()
     ? getAllFiles(resolvedTarget)
     : [resolvedTarget];
@@ -37,6 +51,8 @@ function runAnalysis(targetDir) {
     proseSlop: []
   };
 
+  const maxLOC = config && config.rules && config.rules.bloatSlop && config.rules.bloatSlop.maxLOC ? config.rules.bloatSlop.maxLOC : 250;
+
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
     const content = fs.readFileSync(file, 'utf8');
@@ -45,7 +61,7 @@ function runAnalysis(targetDir) {
       const codeIssues = scanCodeSlop(file, content);
       if (codeIssues.length) results.codeSlop.push(...codeIssues);
 
-      const bloatIssues = scanBloatSlop(file, content);
+      const bloatIssues = scanBloatSlop(file, content, maxLOC);
       if (bloatIssues.length) results.bloatSlop.push(...bloatIssues);
     }
 
