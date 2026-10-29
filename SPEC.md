@@ -60,8 +60,8 @@ anti-slop-stack/
 - **REDUNDANT_PASS_THROUGH**: Flags single-line wrappers that merely invoke another function with identical parameters.
 
 ### 3.3 Layer 3: UI Slop
-- **UI_TEMPLATE_SLOP (Purple Glow)**: Flags AI-typical `#8b5cf6` linear gradients and unstyled lavender box-shadow glows.
-- **HORIZONTAL_OVERFLOW_RISK**: Flags fixed pixel widths (`width: 600px` to `1920px`) inside layout containers. Remediation: Use `max-width: 100%`, flexbox, or grid auto-fit.
+- **UI_TEMPLATE_SLOP (Purple Glow & Template Gradients)**: Flags AI-typical `#8b5cf6` linear gradients, unstyled lavender box-shadow glows, and generic Tailwind template classes (`bg-gradient-to-r from-purple-500 to-indigo-500`).
+- **HORIZONTAL_OVERFLOW_RISK**: Flags fixed pixel widths (`width: 600px` to `1920px`, or Tailwind `w-[800px]`) inside layout containers. Remediation: Use `max-width: 100%`, flexbox, or grid auto-fit.
 
 ### 3.4 Layer 4: Prose Slop
 - **AI_PROSE_BUZZWORD**: Flags overused AI markers (`delve`, `leverage`, `robust`, `seamless`, `testament`, `spearhead`, `tapestry`, `vital role`).

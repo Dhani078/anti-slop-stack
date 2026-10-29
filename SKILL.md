@@ -47,9 +47,10 @@ AI models naturally gravitate toward:
 
 ### 3. UI & Visual Slop Purifier
 - **Ban Generic AI Aesthetics**: Reject template dark-mode purple/lavender glows and unstyled cards.
+- **Tailwind Template Slop**: Detect boilerplate gradients (`from-purple-500 to-indigo-500`) and shadow glows (`shadow-purple-500/50`).
 - **Optical Precision**: Enforce concentric corner radiuses (`outer_radius = inner_radius + padding`).
 - **Contrast & Hierarchy**: Ensure minimum WCAG 4.5:1 text contrast and distinct typographic scale.
-- **Zero Horizontal Overflow**: Zero tolerance for horizontal scrolling on mobile (360px) and desktop viewports.
+- **Zero Horizontal Overflow**: Zero tolerance for horizontal scrolling on mobile (360px) and desktop viewports (`w-[800px]`, `width: 900px`).
 
 ### 4. Prose & Copywriting Purifier
 - **Purge AI Clichés**: Ban filler words: `delve`, `leverage`, `robust`, `seamless`, `testament`, `spearhead`, `tapestry`, `vital role`.

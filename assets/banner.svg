@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c10" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" rx="16" fill="url(#bg)" stroke="#30363d" stroke-width="2" />
+
+  <!-- Shield Icon -->
+  <g transform="translate(100, 110)">
+    <path d="M 50 10 L 90 25 L 90 85 C 90 125 50 160 50 160 C 50 160 10 125 10 85 L 10 25 Z" fill="none" stroke="url(#accent)" stroke-width="6" stroke-linejoin="round" />
+    <path d="M 35 85 L 45 95 L 68 65" fill="none" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Title & Tagline -->
+  <text x="240" y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="800" fill="#f0f6fc" letter-spacing="-1">
+    Anti-Slop Stack
+  </text>
+  
+  <text x="245" y="215" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="500" fill="#8b949e">
+    The Ruthless Purifier for AI Coding Agents
+  </text>
+
+  <!-- Pills / Badges -->
+  <g transform="translate(245, 255)">
+    <!-- Pill 1 -->
+    <rect x="0" y="0" width="130" height="36" rx="18" fill="#1f242c" stroke="#30363d" />
+    <text x="65" y="23" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#58a6ff" text-anchor="middle">Code Slop</text>
+
+    <!-- Pill 2 -->
+    <rect x="145" y="0" width="150" height="36" rx="18" fill="#1f242c" stroke="#30363d" />
+    <text x="220" y="23" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#3fb950" text-anchor="middle">YAGNI Bloat</text>
+
+    <!-- Pill 3 -->
+    <rect x="310" y="0" width="120" height="36" rx="18" fill="#1f242c" stroke="#30363d" />
+    <text x="370" y="23" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#d29922" text-anchor="middle">UI Slop</text>
+
+    <!-- Pill 4 -->
+    <rect x="445" y="0" width="130" height="36" rx="18" fill="#1f242c" stroke="#30363d" />
+    <text x="510" y="23" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#f85149" text-anchor="middle">Prose Slop</text>
+
+    <!-- Pill 5: Zero Dep -->
+    <rect x="590" y="0" width="170" height="36" rx="18" fill="#161b22" stroke="#10b981" />
+    <text x="675" y="23" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#10b981" text-anchor="middle">⚡ Zero Dependencies</text>
+  </g>
+</svg>

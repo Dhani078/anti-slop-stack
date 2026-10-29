@@ -56,10 +56,11 @@ const dirtyCSS = `
   box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
   width: 900px;
 }
+<div className="bg-gradient-to-r from-purple-500 to-indigo-500 w-[800px]" />
 `;
 const uiIssues = scanUISlop('style.css', dirtyCSS);
-assert.strictEqual(uiIssues.length, 3, 'Should detect gradient, glow, and hardcoded width overflow');
-console.log('✓ UI Slop scanner passed');
+assert.strictEqual(uiIssues.length, 5, 'Should detect 3 CSS + 2 Tailwind template slop patterns');
+console.log('✓ UI Slop scanner passed (CSS + Tailwind tokens)');
 
 // 5. Test Prose Slop
 const dirtyProse = `

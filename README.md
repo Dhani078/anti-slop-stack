@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" alt="Anti-Slop Stack Banner" width="100%" />
+</p>
+
 # Anti-Slop Stack 🛡️
 
 > **The ruthless multi-layer purifier for AI coding agents.**
@@ -87,7 +91,7 @@ npx anti-slop ci src/
 |---|---|---|
 | **1. Code Slop** | TypeScript, JavaScript, Python, PHP, Go, Rust | Narrative comments, swallowed exceptions (`catch {}`), `as any` / `@ts-ignore`, dead residue. |
 | **2. Architecture & Bloat** | Architecture & Modules | Single-implementation interfaces, speculative wrappers, files exceeding 200 LOC ceiling. |
-| **3. UI & Visual Slop** | CSS, Tailwind, JSX, Vue | Generic AI purple glows, template card layouts, hardcoded width overflow risks. |
+| **3. UI & Visual Slop** | CSS, Tailwind, JSX, Vue | Generic AI purple glows, template card layouts, hardcoded width overflow risks, Tailwind template gradients (`from-purple-500 to-indigo-500`). |
 | **4. Prose & Copy** | Markdown, HTML, Docs | AI clichés (`delve`, `leverage`, `seamless`), throat-clearing openings, passive voice. |
 
 ---
