@@ -18,7 +18,6 @@ function formatReport(results) {
     return;
   }
 
-  // 1. Code Slop
   if (codeSlop.length > 0) {
     console.log(`\n[!] 1. CODE SLOP (${codeSlop.length} issues)`);
     codeSlop.forEach(issue => {
@@ -29,7 +28,6 @@ function formatReport(results) {
     });
   }
 
-  // 2. Bloat Slop
   if (bloatSlop.length > 0) {
     console.log(`\n[!] 2. ARCHITECTURE & YAGNI BLOAT (${bloatSlop.length} issues)`);
     bloatSlop.forEach(issue => {
@@ -40,7 +38,6 @@ function formatReport(results) {
     });
   }
 
-  // 3. UI Slop
   if (uiSlop.length > 0) {
     console.log(`\n[!] 3. UI & VISUAL TEMPLATE SLOP (${uiSlop.length} issues)`);
     uiSlop.forEach(issue => {
@@ -51,7 +48,6 @@ function formatReport(results) {
     });
   }
 
-  // 4. Prose Slop
   if (proseSlop.length > 0) {
     console.log(`\n[!] 4. PROSE & BUZZWORD SLOP (${proseSlop.length} issues)`);
     proseSlop.forEach(issue => {
@@ -63,10 +59,32 @@ function formatReport(results) {
   }
 
   console.log(`\n======================================================`);
-  console.log(`Recommendation: Run 'node bin/anti-slop.js fix' for auto-cleaning.`);
+  console.log(`Recommendation: Run 'anti-slop fix' for auto-cleaning.`);
   console.log(`======================================================\n`);
 }
 
+function formatJSON(results) {
+  const output = {
+    target: results.target,
+    totalFiles: results.totalFiles,
+    summary: {
+      total: results.codeSlop.length + results.bloatSlop.length + results.uiSlop.length + results.proseSlop.length,
+      code: results.codeSlop.length,
+      bloat: results.bloatSlop.length,
+      ui: results.uiSlop.length,
+      prose: results.proseSlop.length
+    },
+    findings: {
+      codeSlop: results.codeSlop,
+      bloatSlop: results.bloatSlop,
+      uiSlop: results.uiSlop,
+      proseSlop: results.proseSlop
+    }
+  };
+  console.log(JSON.stringify(output, null, 2));
+}
+
 module.exports = {
-  formatReport
+  formatReport,
+  formatJSON
 };

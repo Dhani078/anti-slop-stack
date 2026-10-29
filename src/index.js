@@ -4,7 +4,7 @@ const { scanCodeSlop, fixCodeSlop } = require('./rules/code-slop');
 const { scanBloatSlop } = require('./rules/bloat-slop');
 const { scanUISlop } = require('./rules/ui-slop');
 const { scanProseSlop } = require('./rules/prose-slop');
-const { formatReport } = require('./reporter');
+const { formatReport, formatJSON } = require('./reporter');
 
 function getAllFiles(dirPath, arrayOfFiles = []) {
   if (!fs.existsSync(dirPath)) return arrayOfFiles;
@@ -41,8 +41,7 @@ function runAnalysis(targetDir) {
     const ext = path.extname(file).toLowerCase();
     const content = fs.readFileSync(file, 'utf8');
 
-    // Code Slop (.js, .ts, .jsx, .tsx, .py, .php)
-    if (['.js', '.ts', '.jsx', '.tsx', '.py', '.php'].includes(ext)) {
+    if (['.js', '.ts', '.jsx', '.tsx', '.py', '.php', '.go', '.rs'].includes(ext)) {
       const codeIssues = scanCodeSlop(file, content);
       if (codeIssues.length) results.codeSlop.push(...codeIssues);
 
@@ -50,13 +49,11 @@ function runAnalysis(targetDir) {
       if (bloatIssues.length) results.bloatSlop.push(...bloatIssues);
     }
 
-    // UI Slop (.css, .scss, .html, .jsx, .tsx, .vue)
     if (['.css', '.scss', '.html', '.jsx', '.tsx', '.vue'].includes(ext)) {
       const uiIssues = scanUISlop(file, content);
       if (uiIssues.length) results.uiSlop.push(...uiIssues);
     }
 
-    // Prose Slop (.md, .txt, .html)
     if (['.md', '.txt', '.html'].includes(ext)) {
       const proseIssues = scanProseSlop(file, content);
       if (proseIssues.length) results.proseSlop.push(...proseIssues);
@@ -92,21 +89,24 @@ function runCLI(command, targetPath) {
   if (command === 'scan') {
     const results = runAnalysis(targetPath);
     formatReport(results);
+  } else if (command === 'json') {
+    const results = runAnalysis(targetPath);
+    formatJSON(results);
   } else if (command === 'fix') {
     console.log(`\n=== Anti-Slop Stack Fixer ===`);
     const count = runFix(targetPath);
     console.log(`\nCompleted: ${count} mechanical slop issues purged cleanly.\n`);
   } else if (command === 'ci') {
     const results = runAnalysis(targetPath);
-    const totalIssues = results.codeSlop.length + results.bloatSlop.length + results.uiSlop.length + results.proseSlop.length;
+    const criticalCount = results.codeSlop.filter(i => i.severity === 'HIGH' || i.severity === 'CRITICAL').length;
     formatReport(results);
-    if (totalIssues > 0) {
-      console.error(`\nCI FAILED: Found ${totalIssues} slop issues. Purge slop before merging.\n`);
+    if (criticalCount > 0) {
+      console.error(`\nCI FAILED: Found ${criticalCount} high-severity slop violations.\n`);
       process.exit(1);
     }
-    console.log(`\nCI PASSED: Codebase is 100% slop-free.\n`);
+    console.log(`\nCI PASSED: Codebase meets production quality floor.\n`);
   } else {
-    console.log(`Usage: anti-slop [scan|fix|ci] <path>`);
+    console.log(`Usage: anti-slop [scan|fix|ci|json] <path>`);
   }
 }
 

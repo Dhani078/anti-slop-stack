@@ -3,21 +3,23 @@
 > **The ruthless multi-layer purifier for AI coding agents.**
 > Strips away bloated boilerplate, hallucinated abstractions, narrative comments, generic AI template UIs, and robotic prose.
 
+[![Anti-Slop CI](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js CI](https://img.shields.io/badge/Node.js-%3E%3D16.0.0-brightgreen.svg)]()
 [![Platform: Agent Skills](https://img.shields.io/badge/Platform-Hermes%20%7C%20Claude%20%7C%20Codex%20%7C%20Cursor-purple.svg)]()
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)]()
 
 ---
 
 ## 🎯 The Problem
 
-Large Language Models (LLMs) and AI coding agents have a natural tendency toward **AI Slop**:
-- **Code Slop**: Trivial comments restating obvious code, empty `catch (e) {}` blocks, unchecked `as any` band-aids.
+Large Language Models (LLMs) and AI coding agents have an innate bias toward **AI Slop**:
+- **Code Slop**: Trivial comments restating syntax, empty `catch (e) {}` blocks, unchecked `as any` band-aids.
 - **YAGNI & Architecture Bloat**: Single-use interfaces, premature factories, speculative configuration, and wrapper functions that add zero semantic value.
-- **UI Slop**: Cookie-cutter purple gradients, unstyled floating cards, hardcoded pixel widths breaking responsive viewports.
+- **UI Slop**: Cookie-cutter purple gradients, unstyled floating cards, hardcoded pixel widths breaking mobile viewports.
 - **Prose Slop**: Buzzword salads (*"delve"*, *"leverage"*, *"testament"*, *"in today's rapidly evolving world"*).
 
-`anti-slop-stack` operates as a strict Senior Staff Engineer quality gate that detects, flags, and automatically purges these patterns.
+`anti-slop-stack` operates as an automated Senior Staff Engineer and QA gatekeeper that detects, catalogs, and mechanically purges these patterns.
 
 ---
 
@@ -34,8 +36,14 @@ Automatically strips trivial narrative comments, dead imports, and obvious resid
 npx anti-slop fix src/
 ```
 
-### 3. CI Quality Gate
-Fails the build with exit code `1` if slop exceeds tolerance:
+### 3. Machine-Readable JSON Export
+Output structured findings for CI/CD dashboards or Git pre-commit hooks:
+```bash
+npx anti-slop json src/
+```
+
+### 4. CI Quality Gate
+Fails the build with exit code `1` if high-severity violations exist:
 ```bash
 npx anti-slop ci src/
 ```
@@ -46,7 +54,7 @@ npx anti-slop ci src/
 
 | Layer | Target | What it Eliminates |
 |---|---|---|
-| **1. Code Slop** | TypeScript, JavaScript, Python, PHP, Go | Narrative comments, swallowed exceptions (`catch {}`), `as any` / `@ts-ignore`, dead residue. |
+| **1. Code Slop** | TypeScript, JavaScript, Python, PHP, Go, Rust | Narrative comments, swallowed exceptions (`catch {}`), `as any` / `@ts-ignore`, dead residue. |
 | **2. Architecture & Bloat** | Architecture & Modules | Single-implementation interfaces, speculative wrappers, files exceeding 200 LOC ceiling. |
 | **3. UI & Visual Slop** | CSS, Tailwind, JSX, Vue | Generic AI purple glows, template card layouts, hardcoded width overflow risks. |
 | **4. Prose & Copy** | Markdown, HTML, Docs | AI clichés (`delve`, `leverage`, `seamless`), throat-clearing openings, passive voice. |
@@ -78,7 +86,7 @@ Before finalizing code changes, execute anti-slop-stack to audit and eliminate u
 
 ## 🧪 Testing
 
-Run the included verification suite:
+Run the included standalone verification suite (0 external dependencies):
 ```bash
 npm test
 ```
