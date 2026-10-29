@@ -79,7 +79,7 @@ Audit in CI mode (exits with non-zero code if slop exceeds threshold):
 node src/index.js ci [path]
 ```
 
-### Agent Integration (Hermes / Claude / Codex / Cursor)
+### Agent Integration (Hermes / Claude Code / Cursor / Windsurf / Codex / Aider / Cline / Copilot)
 When this skill is invoked:
 1. Run the local scanner across the affected project files.
 2. Report categorized slop findings grouped by severity (Critical / High / Cleanable).

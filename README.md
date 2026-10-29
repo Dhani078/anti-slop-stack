@@ -11,7 +11,7 @@
 [![GitHub Action](https://img.shields.io/badge/GitHub%20Action-Dhani078%2Fanti--slop--stack-blue?logo=githubactions&logoColor=white)](https://github.com/Dhani078/anti-slop-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20.0.0-brightgreen.svg)]()
-[![Platform: Agent Skills](https://img.shields.io/badge/Platform-Hermes%20%7C%20Claude%20%7C%20Codex%20%7C%20Cursor-purple.svg)]()
+[![Platform: Universal Agent Skills](https://img.shields.io/badge/Platforms-Hermes%20%7C%20Claude%20Code%20%7C%20Cursor%20%7C%20Windsurf%20%7C%20Codex%20%7C%20Aider%20%7C%20Cline%20%7C%20GitHub%20Copilot%20%7C%20Antigravity-purple.svg)]()
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)]()
 
 ---
@@ -98,23 +98,43 @@ npx anti-slop ci src/
 
 ## 🤖 Installation into AI Coding Agents
 
-### For Hermes Agent
-Clone into your Hermes skills directory:
+anti-slop-stack is designed to run seamlessly across any AI coding environment:
+
+### 1. Hermes Agent
+Clone directly into your Hermes skills directory:
 ```bash
 cd ~/.hermes/skills/code-quality
 git clone https://github.com/Dhani078/anti-slop-stack.git
 ```
 
-### For Claude Code
-Add to your project's `.claude/skills/`:
+### 2. Claude Code CLI
+Clone into your workspace or user skills folder:
 ```bash
 git clone https://github.com/Dhani078/anti-slop-stack.git .claude/skills/anti-slop-stack
 ```
 
-### For OpenAI Codex / Cursor / Antigravity
-Reference `SKILL.md` directly in your workspace rules or prompt instructions:
+### 3. Cursor & Windsurf
+Add `SKILL.md` directly to your project rules (`.cursorrules` or `.windsurfrules`):
+```bash
+curl -s https://raw.githubusercontent.com/Dhani078/anti-slop-stack/main/SKILL.md >> .cursorrules
+```
+
+### 4. OpenAI Codex & Antigravity
+Reference `SKILL.md` inside your repository instructions (`AGENTS.md`):
 ```markdown
-Before finalizing code changes, execute anti-slop-stack to audit and eliminate unnecessary abstractions, narrative comments, and template bloat.
+Before finalizing code changes, review and enforce SKILL.md from anti-slop-stack to eliminate boilerplate, narrative comments, and template UI bloat.
+```
+
+### 5. Aider & Cline & Roo Code
+Use as a pre-commit or post-generation check script:
+```bash
+npx anti-slop scan src
+```
+
+### 6. GitHub Copilot CLI & Workspaces
+Embed into `.github/copilot-instructions.md`:
+```markdown
+Follow the anti-slop-stack rules: write minimal code (YAGNI), avoid Hungarian interfaces (no IFoo), ban narrative comments, and eliminate generic purple gradients.
 ```
 
 ---
