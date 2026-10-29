@@ -113,6 +113,18 @@ function scanCodeSlop(filePath, content) {
       });
     }
 
+    // 9. Blind delay/sleep anti-pattern
+    if (!line.trim().startsWith('//') && /(?:setTimeout\s*\([^,]+,\s*(?:[2-9]\d{3,}|\d{5,})\)|await\s+(?:sleep|delay)\s*\(\s*(?:[2-9]\d{3,}|\d{5,})\s*\))/.test(line) && !line.includes('test-samples.js')) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'BLIND_SLEEP_SLOP',
+        severity: 'MEDIUM',
+        message: 'Arbitrary sleep or excessive timeout detected. Replace with deterministic polling, event triggers, or condition waits.',
+        sample: line.trim()
+      });
+    }
+
   });
 
   return issues;

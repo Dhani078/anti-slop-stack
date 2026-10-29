@@ -21,10 +21,11 @@ try {
 } catch (err) { throw new Error(err); }
 const dangerous = eval("2 + 2");
 const leakedKey = "sk-123456789012345678901234567890";
+await sleep(5000);
 `;
 const codeIssues = scanCodeSlop('dummy.ts', dirtyCode);
-assert.strictEqual(codeIssues.length, 8, 'Should detect 8 code slop issues (narrative, catch, any, todo, console, generic rethrow, eval, secret)');
-console.log('✓ Code Slop scanner passed (8 checks including hardcoded secret token)');
+assert.strictEqual(codeIssues.length, 9, 'Should detect 9 code slop issues (narrative, catch, any, todo, console, generic rethrow, eval, secret, blind sleep)');
+console.log('✓ Code Slop scanner passed (9 checks including blind sleep timeout)');
 
 // 2. Test Code Slop Fixer
 const { updatedContent, fixCount } = fixCodeSlop(dirtyCode);

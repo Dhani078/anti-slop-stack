@@ -55,6 +55,7 @@ anti-slop-stack/
 - DESTRUCTIVE_ERROR_WRAPPING: Matches generic `catch (e) { throw new Error(e); }`. Remediation: Preserve original error causal chain.
 - DANGEROUS_EVAL_SLOP: Matches `eval()` and `new Function()`. Remediation: Use safe data-driven parsers.
 - HARDCODED_SECRET_SLOP: Matches inline API tokens or mock secrets (`sk-...`, `ghp_...`, `AIzaSy...`). Remediation: Inject secrets securely via environment variables or secret vaults.
+- BLIND_SLEEP_SLOP: Matches arbitrary sleep calls or blind timeouts (`setTimeout(..., 5000)`, `await sleep(3000)`). Remediation: Replace with event-driven triggers, polling loops, or condition checks.
 
 ### 3.2 Layer 2: Architecture & YAGNI Bloat
 - OVERSIZED_GOD_FILE: Flags files exceeding 250 LOC. Enforces modularity and single responsibility.

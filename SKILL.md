@@ -40,6 +40,7 @@ AI models naturally gravitate toward:
 - Destructive Error Wrapping: Forbid generic `catch (err) { throw new Error(err); }` which destroys original stack traces.
 - Dangerous Dynamic Evaluation: Detect critical `eval()` and `new Function()` anti-patterns that expose applications to code injection.
 - Ban Hardcoded Secrets: Flags inline API tokens or mock keys (`sk-...`, `ghp_...`, `AIzaSy...`). Always inject secrets from environment variables or secure vaults.
+- Ban Blind Sleeps & Excessive Timeouts: Flag arbitrary `sleep(3000)` or large `setTimeout` calls that paper over race conditions. Replace with event-based signals, polling, or condition checks.
 
 ### 2. Architecture & YAGNI Purifier (Senior Rules)
 - Stdlib & Native First: Replace third-party library imports with native stdlib or platform built-ins when a few lines suffice.
