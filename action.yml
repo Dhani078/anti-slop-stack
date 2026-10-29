@@ -25,3 +25,8 @@ runs:
         else
           node "${{ github.action_path }}/bin/anti-slop.js" scan "${{ inputs.path }}"
         fi
+
+branding:
+  icon: 'shield'
+  color: 'purple'
+

@@ -166,7 +166,8 @@ All 5 test suites passed cleanly with 0 failures!
 - [Visual Demonstration](docs/DEMO.md) - Before vs. after code comparison showing 48% LOC reduction.
 - [Pre-Commit Hook Guide](docs/PRE-COMMIT.md) - Native Git, Husky, and Python pre-commit setup.
 - [Contributing Guide](CONTRIBUTING.md) - Developer guidelines and zero-dependency principles.
-- [Security Policy](SECURITY.md) - Vulnerability disclosure and security contacts.
+- [Contributor Code of Conduct](CODE_OF_CONDUCT.md) - Community guidelines and behavioral pledge.
+- [Security Policy](SECURITY.md) - Vulnerability disclosure policy and reporting process.
 - [Changelog](CHANGELOG.md) - Version release history and migration notes.
 
 ---
