@@ -166,6 +166,12 @@ All 5 test suites passed cleanly with 0 failures!
 
 ## 📄 Documentation
 
+- [Architecture Overview](docs/ARCHITECTURE.md) - Subsystem flow, directory hierarchy, and pipeline design.
+- [Rules Reference Catalog](docs/RULES_REFERENCE.md) - Granular catalog and descriptions of all detection rules.
+- [Performance Benchmarks](docs/BENCHMARKS.md) - Latency, throughput, and memory consumption stats.
+- [CI/CD Integration](docs/CI_CD.md) - Setups for GitHub Actions, GitLab CI, Bitbucket, and Docker.
+- [Extending Rules](docs/EXTENDING_RULES.md) - Guide for adding custom project rules and configuration.
+- [Frequently Asked Questions (FAQ)](docs/FAQ.md) - Common questions, comparison with ESLint, and edge cases.
 - [Architecture & Specification](SPEC.md) - Full technical design, rule taxonomy, and QA gates.
 - [Visual Demonstration](docs/DEMO.md) - Before vs. after code comparison showing 48% LOC reduction.
 - [Pre-Commit Hook Guide](docs/PRE-COMMIT.md) - Native Git, Husky, and Python pre-commit setup.
