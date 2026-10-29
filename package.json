@@ -6,6 +6,14 @@
   "bin": {
     "anti-slop": "bin/anti-slop.js"
   },
+  "files": [
+    "bin",
+    "src",
+    "SKILL.md",
+    "action.yml",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "node tests/test-samples.js",
     "scan": "node bin/anti-slop.js scan .",
@@ -19,7 +27,13 @@
     "ai-cleaner",
     "claude-code",
     "hermes-agent",
-    "agent-skills"
+    "agent-skills",
+    "cursor",
+    "windsurf",
+    "github-copilot",
+    "aider",
+    "cline",
+    "linter"
   ],
   "repository": {
     "type": "git",

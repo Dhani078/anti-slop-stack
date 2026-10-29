@@ -1,0 +1,11 @@
+.github/
+docs/
+tests/
+assets/
+.antisloprc.json
+.pre-commit-hooks.yaml
+.gitignore
+SPEC.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
