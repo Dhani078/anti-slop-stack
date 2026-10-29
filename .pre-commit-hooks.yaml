@@ -1,0 +1,6 @@
+- id: anti-slop
+  name: Anti-Slop Stack Purifier
+  description: Ruthless multi-layer purifier for AI coding agents. Eliminates code, bloat, UI, and prose slop.
+  entry: node bin/anti-slop.js ci
+  language: node
+  files: \.(js|ts|jsx|tsx|py|php|go|rs|css|scss|html|vue|md|txt)$

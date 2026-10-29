@@ -101,6 +101,19 @@ function runFix(targetDir) {
   return totalFixes;
 }
 
+function runInitHook() {
+  const gitHooksDir = path.resolve('.git', 'hooks');
+  if (!fs.existsSync(gitHooksDir)) {
+    console.error('Error: Not a git repository or .git/hooks directory not found.');
+    process.exit(1);
+  }
+
+  const hookScript = `#!/bin/sh\n# anti-slop pre-commit hook\nnode bin/anti-slop.js ci .\nif [ $? -ne 0 ]; then\n  echo "❌ Commit rejected by anti-slop-stack."\n  exit 1\nfi\nexit 0\n`;
+  const preCommitFile = path.join(gitHooksDir, 'pre-commit');
+  fs.writeFileSync(preCommitFile, hookScript, { mode: 0o755 });
+  process.stdout.write('✅ Native Git pre-commit hook installed successfully into .git/hooks/pre-commit\n');
+}
+
 function runCLI(command, targetPath) {
   if (command === 'scan') {
     const results = runAnalysis(targetPath);
@@ -112,6 +125,8 @@ function runCLI(command, targetPath) {
     console.log(`\n=== Anti-Slop Stack Fixer ===`);
     const count = runFix(targetPath);
     console.log(`\nCompleted: ${count} mechanical slop issues purged cleanly.\n`);
+  } else if (command === 'init-hook') {
+    runInitHook();
   } else if (command === 'ci') {
     const results = runAnalysis(targetPath);
     const criticalCount = results.codeSlop.filter(i => i.severity === 'HIGH' || i.severity === 'CRITICAL').length;
@@ -122,7 +137,7 @@ function runCLI(command, targetPath) {
     }
     console.log(`\nCI PASSED: Codebase meets production quality floor.\n`);
   } else {
-    console.log(`Usage: anti-slop [scan|fix|ci|json] <path>`);
+    console.log(`Usage: anti-slop [scan|fix|ci|json|init-hook] <path>`);
   }
 }
 

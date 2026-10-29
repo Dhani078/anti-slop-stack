@@ -54,7 +54,14 @@ Configure thresholds and toggle rules per repository:
 }
 ```
 
-### 5. CI Quality Gate
+### 5. Install Git Pre-Commit Hook
+Prevent degraded AI code from ever entering your Git history:
+```bash
+npx anti-slop init-hook
+```
+See [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) for Husky and Python `pre-commit` integrations.
+
+### 6. CI Quality Gate
 Fails the build with exit code `1` if high-severity violations exist:
 ```bash
 npx anti-slop ci src/
