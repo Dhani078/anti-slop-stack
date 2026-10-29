@@ -70,4 +70,13 @@ const proseIssues = scanProseSlop('readme.md', dirtyProse);
 assert(proseIssues.length >= 3, 'Should detect throat clearing and buzzwords (delve, leverage, robust)');
 console.log('✓ Prose Slop scanner passed');
 
-console.log('\nAll 5 test suites passed cleanly with 0 failures!');
+// 6. Test Config Ignore Matching
+const { shouldIgnore } = require('../src/index');
+if (typeof shouldIgnore === 'function') {
+  assert(shouldIgnore('vendor/bundle.js', ['vendor/**']), 'Should ignore files in vendor directory');
+  assert(shouldIgnore('app.min.js', ['*.min.js']), 'Should ignore minified files');
+  assert(!shouldIgnore('src/app.js', ['vendor/**']), 'Should not ignore regular src file');
+  console.log('✓ Config ignore pattern matcher passed');
+}
+
+console.log('\nAll 6 test suites passed cleanly with 0 failures!');

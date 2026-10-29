@@ -34,13 +34,33 @@ function loadConfig(rootDir) {
   return null;
 }
 
+function shouldIgnore(filePath, ignorePatterns = []) {
+  const norm = filePath.replace(/\\/g, '/');
+  for (const pat of ignorePatterns) {
+    const cleanPat = pat.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*');
+    const regex = new RegExp(cleanPat);
+    if (regex.test(norm)) return true;
+  }
+  return false;
+}
+
 function runAnalysis(targetDir) {
+  if (!fs.existsSync(targetDir || '.')) {
+    console.error(`Error: Path '${targetDir}' does not exist.`);
+    process.exit(1);
+  }
+
   const resolvedTarget = path.resolve(targetDir || '.');
-  const config = loadConfig(fs.statSync(resolvedTarget).isDirectory() ? resolvedTarget : path.dirname(resolvedTarget));
+  const isDir = fs.statSync(resolvedTarget).isDirectory();
+  const config = loadConfig(isDir ? resolvedTarget : path.dirname(resolvedTarget));
   
-  const files = fs.statSync(resolvedTarget).isDirectory()
+  let files = isDir
     ? getAllFiles(resolvedTarget)
     : [resolvedTarget];
+
+  if (config && config.ignore && Array.isArray(config.ignore)) {
+    files = files.filter(f => !shouldIgnore(path.relative(resolvedTarget, f), config.ignore));
+  }
 
   const results = {
     target: resolvedTarget,
@@ -80,10 +100,22 @@ function runAnalysis(targetDir) {
 }
 
 function runFix(targetDir) {
+  if (!fs.existsSync(targetDir || '.')) {
+    console.error(`Error: Path '${targetDir}' does not exist.`);
+    process.exit(1);
+  }
+
   const resolvedTarget = path.resolve(targetDir || '.');
-  const files = fs.statSync(resolvedTarget).isDirectory()
+  const isDir = fs.statSync(resolvedTarget).isDirectory();
+  const config = loadConfig(isDir ? resolvedTarget : path.dirname(resolvedTarget));
+
+  let files = isDir
     ? getAllFiles(resolvedTarget)
     : [resolvedTarget];
+
+  if (config && config.ignore && Array.isArray(config.ignore)) {
+    files = files.filter(f => !shouldIgnore(path.relative(resolvedTarget, f), config.ignore));
+  }
 
   let totalFixes = 0;
   for (const file of files) {
@@ -167,5 +199,6 @@ Options & Config:
 module.exports = {
   runAnalysis,
   runFix,
-  runCLI
+  runCLI,
+  shouldIgnore
 };
