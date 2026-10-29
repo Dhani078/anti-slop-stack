@@ -74,6 +74,14 @@ function runAnalysis(targetDir) {
   const maxLOC = config && config.rules && config.rules.bloatSlop && config.rules.bloatSlop.maxLOC ? config.rules.bloatSlop.maxLOC : 250;
 
   for (const file of files) {
+    // Skip large compiled/bundled assets over 1MB
+    try {
+      const stats = fs.statSync(file);
+      if (stats.size > 1024 * 1024) continue;
+    } catch {
+      continue;
+    }
+
     const ext = path.extname(file).toLowerCase();
     const content = fs.readFileSync(file, 'utf8');
 
@@ -119,6 +127,13 @@ function runFix(targetDir) {
 
   let totalFixes = 0;
   for (const file of files) {
+    try {
+      const stats = fs.statSync(file);
+      if (stats.size > 1024 * 1024) continue;
+    } catch {
+      continue;
+    }
+
     const ext = path.extname(file).toLowerCase();
     if (['.js', '.ts', '.jsx', '.tsx', '.py', '.php'].includes(ext)) {
       const content = fs.readFileSync(file, 'utf8');
