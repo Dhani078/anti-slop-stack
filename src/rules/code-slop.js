@@ -88,6 +88,18 @@ function scanCodeSlop(filePath, content) {
         sample: line.trim()
       });
     }
+
+    // 7. Dangerous Code Execution Slop: eval() or new Function() with dynamic strings
+    if (/\b(eval\s*\([^)]+|new\s+Function\s*\([^)]+)/.test(line) && !line.includes('test-samples.js')) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'DANGEROUS_EVAL_SLOP',
+        severity: 'CRITICAL',
+        message: 'Dynamic code execution (eval / new Function) is dangerous and an anti-pattern. Refactor using safe data parsers.',
+        sample: line.trim()
+      });
+    }
   });
 
   return issues;

@@ -19,10 +19,11 @@ console.log("DEBUG: user loaded", user);
 try {
   parse();
 } catch (err) { throw new Error(err); }
+const dangerous = eval("2 + 2");
 `;
 const codeIssues = scanCodeSlop('dummy.ts', dirtyCode);
-assert.strictEqual(codeIssues.length, 6, 'Should detect 6 code slop issues (narrative, catch, any, todo, console, generic rethrow)');
-console.log('✓ Code Slop scanner passed (6 checks)');
+assert.strictEqual(codeIssues.length, 7, 'Should detect 7 code slop issues (narrative, catch, any, todo, console, generic rethrow, eval)');
+console.log('✓ Code Slop scanner passed (7 checks including dangerous eval)');
 
 // 2. Test Code Slop Fixer
 const { updatedContent, fixCount } = fixCodeSlop(dirtyCode);

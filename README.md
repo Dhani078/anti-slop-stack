@@ -89,7 +89,7 @@ npx anti-slop ci src/
 
 | Layer | Target | What it Eliminates |
 |---|---|---|
-| **1. Code Slop** | TypeScript, JavaScript, Python, PHP, Go, Rust | Narrative comments, swallowed exceptions (`catch {}`), `as any` / `@ts-ignore`, dead residue. |
+| **1. Code Slop** | TypeScript, JavaScript, Python, PHP, Go, Rust | Narrative comments, swallowed exceptions (`catch {}`), `as any` / `@ts-ignore`, dead residue, leftover debug logs, destructive error wrapping, dangerous `eval()`. |
 | **2. Architecture & Bloat** | Architecture & Modules | Single-implementation interfaces, speculative wrappers, files exceeding 200 LOC ceiling. |
 | **3. UI & Visual Slop** | CSS, Tailwind, JSX, Vue | Generic AI purple glows, template card layouts, hardcoded width overflow risks, Tailwind template gradients (`from-purple-500 to-indigo-500`). |
 | **4. Prose & Copy** | Markdown, HTML, Docs | AI clichés (`delve`, `leverage`, `seamless`), throat-clearing openings, passive voice. |

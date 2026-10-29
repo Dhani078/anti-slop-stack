@@ -53,6 +53,7 @@ anti-slop-stack/
 - **DEAD_RESIDUE**: Matches leftover temporary markers (`// TODO: remove`, `// temporary fix`). Remediation: Resolve debt or convert to formal tracking tickets.
 - **LEFTOVER_DEBUG_CALL**: Matches rogue `console.log()` / debug prints. Remediation: Remove before production release.
 - **DESTRUCTIVE_ERROR_WRAPPING**: Matches generic `catch (e) { throw new Error(e); }`. Remediation: Preserve original error causal chain.
+- **DANGEROUS_EVAL_SLOP**: Matches `eval()` and `new Function()`. Remediation: Use safe data-driven parsers.
 
 ### 3.2 Layer 2: Architecture & YAGNI Bloat
 - **OVERSIZED_GOD_FILE**: Flags files exceeding 250 LOC. Enforces modularity and single responsibility.

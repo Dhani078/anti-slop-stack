@@ -38,6 +38,7 @@ AI models naturally gravitate toward:
 - **Dead Code Sweep**: Purge unreferenced imports, unreachable branches, and commented-out scraps.
 - **Purge Debug Console Output**: Detect and clean stray `console.log()` / debug prints from production code.
 - **Destructive Error Wrapping**: Forbid generic `catch (err) { throw new Error(err); }` which destroys original stack traces.
+- **Dangerous Dynamic Evaluation**: Detect critical `eval()` and `new Function()` anti-patterns that expose applications to code injection.
 
 ### 2. Architecture & YAGNI Purifier (Senior Rules)
 - **Stdlib & Native First**: Replace third-party library imports with native stdlib or platform built-ins when a few lines suffice.
