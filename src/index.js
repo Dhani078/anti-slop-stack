@@ -127,6 +127,29 @@ function runCLI(command, targetPath) {
     console.log(`\nCompleted: ${count} mechanical slop issues purged cleanly.\n`);
   } else if (command === 'init-hook') {
     runInitHook();
+  } else if (command === '--version' || command === '-v') {
+    const pkg = require('../package.json');
+    console.log(`anti-slop-stack v${pkg.version}`);
+  } else if (command === '--help' || command === '-h' || command === 'help') {
+    console.log(`
+Anti-Slop Stack 🛡️
+The ruthless multi-layer purifier for AI coding agents.
+
+Usage:
+  anti-slop [command] [path]
+
+Commands:
+  scan [path]        Scan target directory/file and display diagnostic report
+  fix [path]         Automatically purge mechanical slop (comments, debug calls)
+  ci [path]          Strict CI gate (exits with 1 if violations found)
+  json [path]        Output structured JSON findings for automation
+  init-hook          Install native Git pre-commit hook into .git/hooks/
+  -v, --version      Display current version
+  -h, --help         Display this help message
+
+Options & Config:
+  Place a .antisloprc.json in your project root to customize thresholds.
+`);
   } else if (command === 'ci') {
     const results = runAnalysis(targetPath);
     const criticalCount = results.codeSlop.filter(i => i.severity === 'HIGH' || i.severity === 'CRITICAL').length;
