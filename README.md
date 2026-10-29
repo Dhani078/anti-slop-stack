@@ -10,7 +10,7 @@
 [![Anti-Slop CI](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml)
 [![GitHub Action](https://img.shields.io/badge/GitHub%20Action-Dhani078%2Fanti--slop--stack-blue?logo=githubactions&logoColor=white)](https://github.com/Dhani078/anti-slop-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Node.js CI](https://img.shields.io/badge/Node.js-%3E%3D16.0.0-brightgreen.svg)]()
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-brightgreen.svg)]()
 [![Platform: Agent Skills](https://img.shields.io/badge/Platform-Hermes%20%7C%20Claude%20%7C%20Codex%20%7C%20Cursor-purple.svg)]()
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)]()
 
