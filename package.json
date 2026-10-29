@@ -1,0 +1,29 @@
+{
+  "name": "anti-slop-stack",
+  "version": "1.0.0",
+  "description": "Ruthless multi-layer purifier for AI coding agents. Eliminates bloated boilerplate, narrative comments, hallucinated abstractions, and UI slop.",
+  "main": "src/index.js",
+  "bin": {
+    "anti-slop": "bin/anti-slop.js"
+  },
+  "scripts": {
+    "test": "node tests/test-samples.js",
+    "scan": "node bin/anti-slop.js scan .",
+    "fix": "node bin/anti-slop.js fix ."
+  },
+  "keywords": [
+    "anti-slop",
+    "clean-code",
+    "code-quality",
+    "refactoring",
+    "ai-cleaner",
+    "claude-code",
+    "hermes-agent",
+    "agent-skills"
+  ],
+  "author": "Dhani078",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
