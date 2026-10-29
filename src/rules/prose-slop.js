@@ -21,6 +21,19 @@ function scanProseSlop(filePath, content) {
     // Exclude code blocks and quoted references to avoided words
     const isQuotedOrCode = /`[^`]+`|"([^"]+)"|'([^']+)'/.test(line);
 
+    // Markdown Bold Overuse Slop in docs/prose
+    const boldMatches = line.match(/\*\*[^*]+\*\*/g);
+    if (boldMatches && boldMatches.length >= 3 && !line.includes('|') && !line.includes('test-samples.js')) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'BOLD_OVERUSE_SLOP',
+        severity: 'LOW',
+        message: 'Excessive markdown bolding (>= 3 bold spans in one line). Restructure sentence hierarchy instead of shouting with asterisks.',
+        sample: line.trim()
+      });
+    }
+
     for (const word of AI_BUZZWORDS) {
       const regex = new RegExp(`(?<!\`)\\b${word}\\b(?!\`)`, 'i');
       if (regex.test(line) && !isQuotedOrCode) {

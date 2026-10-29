@@ -66,10 +66,11 @@ console.log('✓ UI Slop scanner passed (CSS + Tailwind tokens)');
 // 5. Test Prose Slop
 const dirtyProse = `
 In today's fast-paced world, we must leverage AI to delve into robust solutions.
+This has **too** many **bold** words **in** one single sentence.
 `;
 const proseIssues = scanProseSlop('readme.md', dirtyProse);
-assert(proseIssues.length >= 3, 'Should detect throat clearing and buzzwords (delve, leverage, robust)');
-console.log('✓ Prose Slop scanner passed');
+assert(proseIssues.length >= 4, 'Should detect throat clearing, buzzwords, and bold overuse slop');
+console.log('✓ Prose Slop scanner passed (buzzwords + bold overuse)');
 
 // 6. Test Config Ignore Matching
 const { shouldIgnore } = require('../src/index');

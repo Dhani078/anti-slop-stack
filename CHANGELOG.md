@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Layer 1 (Code Slop)**: Detects and cleans narrative comments, swallowed exceptions, unsafe casts (`as any`, `@ts-ignore`), dead residue (`TODO: remove`), leftover `console.log()` debug calls, destructive error wrapping, and dangerous dynamic evaluation (`eval()`, `new Function()`).
   - **Layer 2 (Architecture & YAGNI Bloat)**: Flags Hungarian interface notation (`IFoo`), single-use pass-through functions, and files exceeding modular LOC limits.
   - **Layer 3 (UI & Visual Slop)**: Flags generic AI gradients, glowing lavender box shadows, hardcoded pixel widths, and boilerplate Tailwind classes.
-  - **Layer 4 (Prose & Copy Slop)**: Detects 14+ AI buzzwords (`delve`, `leverage`, `seamless`) and throat-clearing sentence openers.
+  - **Layer 4 (Prose & Copy Slop)**: Detects 14+ AI buzzwords (`delve`, `leverage`, `seamless`), throat-clearing sentence openers, and artificial markdown bold overuse (`**term**`).
 - **CLI Commands**:
   - `anti-slop scan [path]`: Human-readable terminal diagnostic report.
   - `anti-slop fix [path]`: Mechanical auto-purging of trivial narrative comments and debug statements.

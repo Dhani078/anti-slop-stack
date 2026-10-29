@@ -67,6 +67,7 @@ anti-slop-stack/
 ### 3.4 Layer 4: Prose Slop
 - **AI_PROSE_BUZZWORD**: Flags overused AI markers (`delve`, `leverage`, `robust`, `seamless`, `testament`, `spearhead`, `tapestry`, `vital role`).
 - **THROAT_CLEARING**: Flags formulaic introductory phrases (*"In today's fast-paced world..."*, *"It is important to remember that..."*).
+- **BOLD_OVERUSE_SLOP**: Flags excessive markdown bolding (`**term**` stacked 3+ times in a single sentence) which indicates artificial emphasis.
 
 ---
 

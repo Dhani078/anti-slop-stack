@@ -100,6 +100,19 @@ function scanCodeSlop(filePath, content) {
         sample: line.trim()
       });
     }
+
+    // 8. Markdown Bold Overuse Slop in chat/prose
+    const boldMatches = line.match(/\*\*[^*]+\*\*/g);
+    if (boldMatches && boldMatches.length >= 3 && !line.includes('|')) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'BOLD_OVERUSE_SLOP',
+        severity: 'LOW',
+        message: 'Excessive markdown bolding (>= 3 bold spans in one line). Restructure sentence hierarchy instead of shouting with asterisks.',
+        sample: line.trim()
+      });
+    }
   });
 
   return issues;

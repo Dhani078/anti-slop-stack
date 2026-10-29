@@ -56,6 +56,7 @@ AI models naturally gravitate toward:
 ### 4. Prose & Copywriting Purifier
 - **Purge AI Clichés**: Ban filler words: `delve`, `leverage`, `robust`, `seamless`, `testament`, `spearhead`, `tapestry`, `vital role`.
 - **Delete Throat-Clearing**: Cut opening sentences like *"In today's fast-paced digital world..."* or *"It is important to remember that..."*.
+- **Bold Overuse Detection**: Flag stacked markdown bold tags (`**word**`) used as artificial emphasis crutches.
 - **Active & Direct**: Replace passive constructions with direct, concrete human language.
 
 ---
