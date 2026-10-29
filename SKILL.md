@@ -39,6 +39,7 @@ AI models naturally gravitate toward:
 - Purge Debug Console Output: Detect and clean stray `console.log()` / debug prints from production code.
 - Destructive Error Wrapping: Forbid generic `catch (err) { throw new Error(err); }` which destroys original stack traces.
 - Dangerous Dynamic Evaluation: Detect critical `eval()` and `new Function()` anti-patterns that expose applications to code injection.
+- Ban Hardcoded Secrets: Flags inline API tokens or mock keys (`sk-...`, `ghp_...`, `AIzaSy...`). Always inject secrets from environment variables or secure vaults.
 
 ### 2. Architecture & YAGNI Purifier (Senior Rules)
 - Stdlib & Native First: Replace third-party library imports with native stdlib or platform built-ins when a few lines suffice.

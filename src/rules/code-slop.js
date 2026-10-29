@@ -101,18 +101,18 @@ function scanCodeSlop(filePath, content) {
       });
     }
 
-    // 8. Markdown Bold Overuse Slop in chat/prose
-    const boldMatches = line.match(/\*\*[^*]+\*\*/g);
-    if (boldMatches && boldMatches.length >= 3 && !line.includes('|')) {
+    // 8. Hardcoded Secret Slop
+    if (/(['"])(?:sk-[a-zA-Z0-9]{20,}|ghp_[a-zA-Z0-9]{20,}|AIzaSy[a-zA-Z0-9_-]{20,})\1/.test(line) && !line.includes('test-samples.js')) {
       issues.push({
         file: filePath,
         line: lineNum,
-        type: 'BOLD_OVERUSE_SLOP',
-        severity: 'LOW',
-        message: 'Excessive markdown bolding (>= 3 bold spans in one line). Restructure sentence hierarchy instead of shouting with asterisks.',
+        type: 'HARDCODED_SECRET_SLOP',
+        severity: 'CRITICAL',
+        message: 'Hardcoded secret token or mock API key pattern detected. Inject via environment variables or secret vaults.',
         sample: line.trim()
       });
     }
+
   });
 
   return issues;

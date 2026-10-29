@@ -54,6 +54,7 @@ anti-slop-stack/
 - LEFTOVER_DEBUG_CALL: Matches rogue `console.log()` / debug prints. Remediation: Remove before production release.
 - DESTRUCTIVE_ERROR_WRAPPING: Matches generic `catch (e) { throw new Error(e); }`. Remediation: Preserve original error causal chain.
 - DANGEROUS_EVAL_SLOP: Matches `eval()` and `new Function()`. Remediation: Use safe data-driven parsers.
+- HARDCODED_SECRET_SLOP: Matches inline API tokens or mock secrets (`sk-...`, `ghp_...`, `AIzaSy...`). Remediation: Inject secrets securely via environment variables or secret vaults.
 
 ### 3.2 Layer 2: Architecture & YAGNI Bloat
 - OVERSIZED_GOD_FILE: Flags files exceeding 250 LOC. Enforces modularity and single responsibility.
