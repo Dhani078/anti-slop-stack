@@ -64,6 +64,30 @@ function scanCodeSlop(filePath, content) {
         sample: line.trim()
       });
     }
+
+    // 5. Leftover Debugging Output (Console Log Residue)
+    if (/(console\.(log|debug|trace)\s*\(|print\s*\("DEBUG)/.test(line) && !line.includes('reporter.js') && !line.includes('test-samples.js') && !line.includes('console.log(`') && !line.includes('console.error(')) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'LEFTOVER_DEBUG_CALL',
+        severity: 'LOW',
+        message: 'Leftover debugging print/console.log statement in production code.',
+        sample: line.trim()
+      });
+    }
+
+    // 6. Generic Error Re-throw Slop: throw new Error(e) or generic catch
+    if (/catch\s*\([a-zA-Z0-9_]+\)\s*\{\s*throw\s+new\s+Error\([a-zA-Z0-9_]+\);?\s*\}/.test(line)) {
+      issues.push({
+        file: filePath,
+        line: lineNum,
+        type: 'DESTRUCTIVE_ERROR_WRAPPING',
+        severity: 'MEDIUM',
+        message: 'Generic re-throw masking original stack trace without contextual error causality.',
+        sample: line.trim()
+      });
+    }
   });
 
   return issues;
@@ -76,17 +100,24 @@ function fixCodeSlop(content) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    let isNarrative = false;
+    let isRemovable = false;
 
+    // Narrative comments
     for (const pat of NARRATIVE_COMMENT_PATTERNS) {
       if (pat.test(line)) {
-        isNarrative = true;
+        isRemovable = true;
         fixCount++;
         break;
       }
     }
 
-    if (!isNarrative) {
+    // Leftover debug logs in standalone lines
+    if (!isRemovable && /^\s*console\.(log|debug|trace)\s*\([^)]*\);?\s*$/.test(line)) {
+      isRemovable = true;
+      fixCount++;
+    }
+
+    if (!isRemovable) {
       filtered.push(line);
     }
   }

@@ -15,15 +15,20 @@ try {
 } catch (e) {}
 const badType = data as any;
 // TODO: remove this temporary hack
+console.log("DEBUG: user loaded", user);
+try {
+  parse();
+} catch (err) { throw new Error(err); }
 `;
 const codeIssues = scanCodeSlop('dummy.ts', dirtyCode);
-assert.strictEqual(codeIssues.length, 4, 'Should detect 4 code slop issues');
-console.log('✓ Code Slop scanner passed');
+assert.strictEqual(codeIssues.length, 6, 'Should detect 6 code slop issues (narrative, catch, any, todo, console, generic rethrow)');
+console.log('✓ Code Slop scanner passed (6 checks)');
 
 // 2. Test Code Slop Fixer
 const { updatedContent, fixCount } = fixCodeSlop(dirtyCode);
-assert.strictEqual(fixCount, 1, 'Should fix 1 narrative comment');
+assert.strictEqual(fixCount, 2, 'Should fix 2 issues (narrative comment + debug console log)');
 assert(!updatedContent.includes('// initialize user session'), 'Should strip narrative comment');
+assert(!updatedContent.includes('console.log("DEBUG: user loaded", user);'), 'Should strip debug console log');
 console.log('✓ Code Slop fixer passed');
 
 // 3. Test Bloat Slop

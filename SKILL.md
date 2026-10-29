@@ -36,6 +36,8 @@ AI models naturally gravitate toward:
 - **Forbid Swallowed Errors**: Flag every empty `catch` block or log-and-forget handler that risks silent failure.
 - **Eliminate Unsafe Coercions**: Flag `as any`, `@ts-ignore`, and dynamic casts that bypass the type checker.
 - **Dead Code Sweep**: Purge unreferenced imports, unreachable branches, and commented-out scraps.
+- **Purge Debug Console Output**: Detect and clean stray `console.log()` / debug prints from production code.
+- **Destructive Error Wrapping**: Forbid generic `catch (err) { throw new Error(err); }` which destroys original stack traces.
 
 ### 2. Architecture & YAGNI Purifier (Senior Rules)
 - **Stdlib & Native First**: Replace third-party library imports with native stdlib or platform built-ins when a few lines suffice.

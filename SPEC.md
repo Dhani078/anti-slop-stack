@@ -51,6 +51,8 @@ anti-slop-stack/
 - **SWALLOWED_EXCEPTION**: Matches empty `catch (...) {}` blocks. Remediation: Re-throw, log to observability provider, or handle explicitly.
 - **UNSAFE_TYPE_CAST**: Matches `as any`, `@ts-ignore`, and dynamic escape hatches. Remediation: Declare proper TypeScript interfaces, generics, or unknown type guards.
 - **DEAD_RESIDUE**: Matches leftover temporary markers (`// TODO: remove`, `// temporary fix`). Remediation: Resolve debt or convert to formal tracking tickets.
+- **LEFTOVER_DEBUG_CALL**: Matches rogue `console.log()` / debug prints. Remediation: Remove before production release.
+- **DESTRUCTIVE_ERROR_WRAPPING**: Matches generic `catch (e) { throw new Error(e); }`. Remediation: Preserve original error causal chain.
 
 ### 3.2 Layer 2: Architecture & YAGNI Bloat
 - **OVERSIZED_GOD_FILE**: Flags files exceeding 250 LOC. Enforces modularity and single responsibility.
