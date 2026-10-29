@@ -1,0 +1,27 @@
+name: Anti-Slop Code Quality Gate
+
+description: 'Run anti-slop-stack to audit and purify AI coding slop, boilerplate, and UI templates in CI/CD.'
+
+author: 'Dhani078'
+
+inputs:
+  path:
+    description: 'Path or directory to scan for AI slop'
+    required: false
+    default: '.'
+  fail-on-violation:
+    description: 'Whether to fail the CI workflow if slop violations are detected'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run Anti-Slop Scanner
+      shell: bash
+      run: |
+        if [ "${{ inputs.fail-on-violation }}" = "true" ]; then
+          node "${{ github.action_path }}/bin/anti-slop.js" ci "${{ inputs.path }}"
+        else
+          node "${{ github.action_path }}/bin/anti-slop.js" scan "${{ inputs.path }}"
+        fi

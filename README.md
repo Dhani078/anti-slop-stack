@@ -4,6 +4,7 @@
 > Strips away bloated boilerplate, hallucinated abstractions, narrative comments, generic AI template UIs, and robotic prose.
 
 [![Anti-Slop CI](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml/badge.svg)](https://github.com/Dhani078/anti-slop-stack/actions/workflows/ci.yml)
+[![GitHub Action](https://img.shields.io/badge/GitHub%20Action-Dhani078%2Fanti--slop--stack-blue?logo=githubactions&logoColor=white)](https://github.com/Dhani078/anti-slop-stack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js CI](https://img.shields.io/badge/Node.js-%3E%3D16.0.0-brightgreen.svg)]()
 [![Platform: Agent Skills](https://img.shields.io/badge/Platform-Hermes%20%7C%20Claude%20%7C%20Codex%20%7C%20Cursor-purple.svg)]()
@@ -61,7 +62,18 @@ npx anti-slop init-hook
 ```
 See [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) for Husky and Python `pre-commit` integrations.
 
-### 6. CI Quality Gate
+### 6. GitHub Action (Reusable CI Workflow)
+Add to your repository's `.github/workflows/quality.yml`:
+```yaml
+steps:
+  - uses: actions/checkout@v4
+  - uses: Dhani078/anti-slop-stack@main
+    with:
+      path: 'src'
+      fail-on-violation: 'true'
+```
+
+### 7. CI Quality Gate
 Fails the build with exit code `1` if high-severity violations exist:
 ```bash
 npx anti-slop ci src/
