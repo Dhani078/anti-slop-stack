@@ -88,4 +88,18 @@ const { runStaged } = require('../src/index');
 assert(typeof runStaged === 'function', 'runStaged must be an exported function');
 console.log('✓ Staged scanner module export verified');
 
-console.log('\nAll 7 test suites passed cleanly with 0 failures!');
+// 8. Test Inline Disable Comment & SARIF
+const disabledCode = `
+// anti-slop-disable-next-line DANGEROUS_EVAL_SLOP
+eval("1 + 1");
+// anti-slop-disable-next-line NARRATIVE_COMMENT
+// initialize session
+`;
+const disabledIssues = scanCodeSlop('disabled.ts', disabledCode);
+assert.strictEqual(disabledIssues.length, 0, 'Inline disable comment should suppress flagged lines');
+
+const { formatSARIF } = require('../src/reporter');
+assert(typeof formatSARIF === 'function', 'formatSARIF must be an exported function');
+console.log('✓ Inline disable comments & SARIF formatter verified');
+
+console.log('\nAll 8 test suites passed cleanly with 0 failures!');

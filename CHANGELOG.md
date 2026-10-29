@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integration Ecosystem:
   - Reusable composite GitHub Action (`action.yml`).
   - Pre-commit hook framework specification (`.pre-commit-hooks.yaml` & `docs/PRE-COMMIT.md`).
+- Advanced Automation:
+  - OASIS SARIF v2.1.0 exporter (`anti-slop sarif [path]`) for native GitHub Code Scanning integration.
+  - Branch PR diff scanner (`anti-slop diff [branch]`) for incremental PR analysis.
+  - Dry-run fixer preview mode (`anti-slop fix --dry-run`).
+  - Inline rule disable comments (`// anti-slop-disable-next-line [RULE]`).
   - Fast Staged Audit (`anti-slop staged`): Enables near-instant scanning of Git staged files prior to committing, preventing dirty code from entering Git history.
   - Project Configuration (`.antisloprc.json`):
   - Standalone assertion test suite (`tests/test-samples.js`) with 100% pass rate.

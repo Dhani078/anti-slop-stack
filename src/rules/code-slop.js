@@ -14,6 +14,13 @@ function scanCodeSlop(filePath, content) {
   lines.forEach((line, index) => {
     const lineNum = index + 1;
 
+    if (index > 0) {
+      const prevLine = lines[index - 1];
+      if (prevLine.includes('anti-slop-disable-next-line')) {
+        return;
+      }
+    }
+
     // 1. Narrative Comments
     for (const pat of NARRATIVE_COMMENT_PATTERNS) {
       if (pat.test(line)) {

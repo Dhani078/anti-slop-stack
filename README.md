@@ -41,10 +41,14 @@ Automatically strips trivial narrative comments, dead imports, and obvious resid
 npx anti-slop fix src/
 ```
 
-### 3. Machine-Readable JSON Export
-Output structured findings for CI/CD dashboards or Git pre-commit hooks:
+### 3. Machine-Readable JSON & SARIF Export
+Output structured findings for CI/CD dashboards or GitHub Code Scanning:
 ```bash
+# JSON output
 npx anti-slop json src/
+
+# SARIF v2.1.0 output for GitHub Security tab
+npx anti-slop sarif src/ > results.sarif
 ```
 
 ### 4. Custom Configuration (`.antisloprc.json`)
@@ -64,9 +68,13 @@ Prevent degraded AI code from ever entering your Git history:
 ```bash
 npx anti-slop init-hook
 ```
-You can also audit only currently staged Git files at any time:
+You can also audit only currently staged Git files or check changes across branch diffs:
 ```bash
+# Audit staged files before commit
 npx anti-slop staged
+
+# Audit changed files against base branch
+npx anti-slop diff origin/main
 ```
 See [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) for Husky and Python `pre-commit` integrations.
 

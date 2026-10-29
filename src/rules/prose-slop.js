@@ -18,6 +18,13 @@ function scanProseSlop(filePath, content) {
   lines.forEach((line, index) => {
     const lineNum = index + 1;
 
+    if (index > 0) {
+      const prevLine = lines[index - 1];
+      if (prevLine.includes('anti-slop-disable-next-line')) {
+        return;
+      }
+    }
+
     // Exclude code blocks and quoted references to avoided words
     const isQuotedOrCode = /`[^`]+`|"([^"]+)"|'([^']+)'/.test(line);
 

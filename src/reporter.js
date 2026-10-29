@@ -84,7 +84,69 @@ function formatJSON(results) {
   process.stdout.write(JSON.stringify(output, null, 2) + '\n');
 }
 
+function formatSARIF(results) {
+  const allIssues = [
+    ...results.codeSlop,
+    ...results.bloatSlop,
+    ...results.uiSlop,
+    ...results.proseSlop
+  ];
+
+  const rulesMap = new Map();
+  const sarifResults = allIssues.map(issue => {
+    const ruleId = issue.type || 'AI_SLOP_VIOLATION';
+    if (!rulesMap.has(ruleId)) {
+      rulesMap.set(ruleId, {
+        id: ruleId,
+        shortDescription: { text: issue.message || ruleId },
+        defaultConfiguration: {
+          level: issue.severity === 'CRITICAL' ? 'error' : issue.severity === 'HIGH' ? 'error' : 'warning'
+        }
+      });
+    }
+
+    const normPath = (issue.file || 'unknown').replace(/\\/g, '/');
+    return {
+      ruleId: ruleId,
+      level: issue.severity === 'CRITICAL' || issue.severity === 'HIGH' ? 'error' : 'warning',
+      message: { text: issue.message || 'AI slop detected.' },
+      locations: [
+        {
+          physicalLocation: {
+            artifactLocation: { uri: normPath },
+            region: {
+              startLine: issue.line || 1,
+              startColumn: 1
+            }
+          }
+        }
+      ]
+    };
+  });
+
+  const sarifLog = {
+    $schema: 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
+    version: '2.1.0',
+    runs: [
+      {
+        tool: {
+          driver: {
+            name: 'anti-slop-stack',
+            informationUri: 'https://github.com/Dhani078/anti-slop-stack',
+            version: '1.0.0',
+            rules: Array.from(rulesMap.values())
+          }
+        },
+        results: sarifResults
+      }
+    ]
+  };
+
+  process.stdout.write(JSON.stringify(sarifLog, null, 2) + '\n');
+}
+
 module.exports = {
   formatReport,
-  formatJSON
+  formatJSON,
+  formatSARIF
 };

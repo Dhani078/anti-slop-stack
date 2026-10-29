@@ -4,8 +4,9 @@ const { scanCodeSlop, fixCodeSlop } = require('./rules/code-slop');
 const { scanBloatSlop } = require('./rules/bloat-slop');
 const { scanUISlop } = require('./rules/ui-slop');
 const { scanProseSlop } = require('./rules/prose-slop');
-const { formatReport, formatJSON } = require('./reporter');
+const { formatReport, formatJSON, formatSARIF } = require('./reporter');
 const { runStaged } = require('./staged');
+const { runDiff } = require('./diff');
 
 function getAllFiles(dirPath, arrayOfFiles = []) {
   if (!fs.existsSync(dirPath)) return arrayOfFiles;
@@ -108,7 +109,7 @@ function runAnalysis(targetDir) {
   return results;
 }
 
-function runFix(targetDir) {
+function runFix(targetDir, isDryRun = false) {
   if (!fs.existsSync(targetDir || '.')) {
     console.error(`Error: Path '${targetDir}' does not exist.`);
     process.exit(1);
@@ -118,9 +119,7 @@ function runFix(targetDir) {
   const isDir = fs.statSync(resolvedTarget).isDirectory();
   const config = loadConfig(isDir ? resolvedTarget : path.dirname(resolvedTarget));
 
-  let files = isDir
-    ? getAllFiles(resolvedTarget)
-    : [resolvedTarget];
+  let files = isDir ? getAllFiles(resolvedTarget) : [resolvedTarget];
 
   if (config && config.ignore && Array.isArray(config.ignore)) {
     files = files.filter(f => !shouldIgnore(path.relative(resolvedTarget, f), config.ignore));
@@ -140,9 +139,12 @@ function runFix(targetDir) {
       const content = fs.readFileSync(file, 'utf8');
       const { updatedContent, fixCount } = fixCodeSlop(content);
       if (fixCount > 0) {
-        fs.writeFileSync(file, updatedContent, 'utf8');
+        if (!isDryRun) {
+          fs.writeFileSync(file, updatedContent, 'utf8');
+        }
         totalFixes += fixCount;
-        console.log(`[FIXED] Cleaned ${fixCount} slop issues in: ${path.relative(process.cwd(), file)}`);
+        const prefix = isDryRun ? '[DRY-RUN]' : '[FIXED]';
+        console.log(`${prefix} ${fixCount} slop issues in: ${path.relative(process.cwd(), file)}`);
       }
     }
   }
@@ -169,15 +171,22 @@ function runCLI(command, targetPath) {
   } else if (command === 'json') {
     const results = runAnalysis(targetPath);
     formatJSON(results);
+  } else if (command === 'sarif') {
+    const results = runAnalysis(targetPath);
+    formatSARIF(results);
   } else if (command === 'fix') {
-    console.log(`\n=== Anti-Slop Stack Fixer ===`);
-    const count = runFix(targetPath);
-    console.log(`\nCompleted: ${count} mechanical slop issues purged cleanly.\n`);
+    const isDryRun = process.argv.includes('--dry-run');
+    console.log(`\n=== Anti-Slop Stack Fixer ${isDryRun ? '(Dry Run)' : ''} ===`);
+    const count = runFix(targetPath, isDryRun);
+    console.log(`\nCompleted: ${count} mechanical slop issues ${isDryRun ? 'identified' : 'purged cleanly'}.\n`);
   } else if (command === 'init-hook') {
     runInitHook();
   } else if (command === 'staged') {
     const config = loadConfig(process.cwd());
     runStaged(config);
+  } else if (command === 'diff') {
+    const config = loadConfig(process.cwd());
+    runDiff(targetPath, config);
   } else if (command === '--version' || command === '-v') {
     const pkg = require('../package.json');
     console.log(`anti-slop-stack v${pkg.version}`);
@@ -191,10 +200,12 @@ Usage:
 
 Commands:
   scan [path]        Scan target directory/file and display diagnostic report
-  fix [path]         Automatically purge mechanical slop (comments, debug calls)
+  fix [path]         Automatically purge mechanical slop (use --dry-run for preview)
   ci [path]          Strict CI gate (exits with 1 if violations found)
   staged             Scan only git staged files before commit
+  diff [branch]      Scan changed files between current branch and base branch
   json [path]        Output structured JSON findings for automation
+  sarif [path]       Output OASIS SARIF v2.1.0 for GitHub Code Scanning
   init-hook          Install native Git pre-commit hook into .git/hooks/
   -v, --version      Display current version
   -h, --help         Display this help message

@@ -27,6 +27,13 @@ function scanUISlop(filePath, content) {
 
   lines.forEach((line, index) => {
     const lineNum = index + 1;
+
+    if (index > 0) {
+      const prevLine = lines[index - 1];
+      if (prevLine.includes('anti-slop-disable-next-line')) {
+        return;
+      }
+    }
     for (const pat of AI_GENERIC_CSS_PATTERNS) {
       if (pat.regex.test(line)) {
         issues.push({
