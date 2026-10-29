@@ -73,5 +73,5 @@ if (user) {
 const safeType: UserRecord = parseUser(data);
 ```
 
-- **LOC Reduced**: 21 lines $\rightarrow$ 11 lines (-48%).
-- **Noise Reduced**: 100% of narrative comments and redundant wrappers eliminated.
+- LOC Reduced: 21 lines $\rightarrow$ 11 lines (-48%).
+- Noise Reduced: 100% of narrative comments and redundant wrappers eliminated.
