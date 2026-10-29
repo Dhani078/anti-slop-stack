@@ -64,6 +64,10 @@ Prevent degraded AI code from ever entering your Git history:
 ```bash
 npx anti-slop init-hook
 ```
+You can also audit only currently staged Git files at any time:
+```bash
+npx anti-slop staged
+```
 See [docs/PRE-COMMIT.md](docs/PRE-COMMIT.md) for Husky and Python `pre-commit` integrations.
 
 ### 6. GitHub Action (Reusable CI Workflow)

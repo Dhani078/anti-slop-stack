@@ -81,4 +81,9 @@ if (typeof shouldIgnore === 'function') {
   console.log('✓ Config ignore pattern matcher passed');
 }
 
-console.log('\nAll 6 test suites passed cleanly with 0 failures!');
+// 7. Test Staged Scanner Helper
+const { runStaged } = require('../src/index');
+assert(typeof runStaged === 'function', 'runStaged must be an exported function');
+console.log('✓ Staged scanner module export verified');
+
+console.log('\nAll 7 test suites passed cleanly with 0 failures!');

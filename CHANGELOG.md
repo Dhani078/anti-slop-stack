@@ -27,7 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integration Ecosystem:
   - Reusable composite GitHub Action (`action.yml`).
   - Pre-commit hook framework specification (`.pre-commit-hooks.yaml` & `docs/PRE-COMMIT.md`).
-  - Project configuration file (`.antisloprc.json`).
+  - Fast Staged Audit (`anti-slop staged`): Enables near-instant scanning of Git staged files prior to committing, preventing dirty code from entering Git history.
+  - Project Configuration (`.antisloprc.json`):
   - Standalone assertion test suite (`tests/test-samples.js`) with 100% pass rate.
   - Cross-platform automated GitHub Actions CI matrix (Ubuntu, Windows, macOS across Node 18, 20, 22).
   - High-resolution SVG dark-mode header banner (`assets/banner.svg`).

@@ -5,6 +5,7 @@ const { scanBloatSlop } = require('./rules/bloat-slop');
 const { scanUISlop } = require('./rules/ui-slop');
 const { scanProseSlop } = require('./rules/prose-slop');
 const { formatReport, formatJSON } = require('./reporter');
+const { runStaged } = require('./staged');
 
 function getAllFiles(dirPath, arrayOfFiles = []) {
   if (!fs.existsSync(dirPath)) return arrayOfFiles;
@@ -155,7 +156,7 @@ function runInitHook() {
     process.exit(1);
   }
 
-  const hookScript = `#!/bin/sh\n# anti-slop pre-commit hook\nnode bin/anti-slop.js ci .\nif [ $? -ne 0 ]; then\n  echo "❌ Commit rejected by anti-slop-stack."\n  exit 1\nfi\nexit 0\n`;
+  const hookScript = `#!/bin/sh\n# anti-slop pre-commit hook\nnode bin/anti-slop.js staged\nif [ $? -ne 0 ]; then\n  echo "❌ Commit rejected by anti-slop-stack."\n  exit 1\nfi\nexit 0\n`;
   const preCommitFile = path.join(gitHooksDir, 'pre-commit');
   fs.writeFileSync(preCommitFile, hookScript, { mode: 0o755 });
   process.stdout.write('✅ Native Git pre-commit hook installed successfully into .git/hooks/pre-commit\n');
@@ -174,6 +175,9 @@ function runCLI(command, targetPath) {
     console.log(`\nCompleted: ${count} mechanical slop issues purged cleanly.\n`);
   } else if (command === 'init-hook') {
     runInitHook();
+  } else if (command === 'staged') {
+    const config = loadConfig(process.cwd());
+    runStaged(config);
   } else if (command === '--version' || command === '-v') {
     const pkg = require('../package.json');
     console.log(`anti-slop-stack v${pkg.version}`);
@@ -189,6 +193,7 @@ Commands:
   scan [path]        Scan target directory/file and display diagnostic report
   fix [path]         Automatically purge mechanical slop (comments, debug calls)
   ci [path]          Strict CI gate (exits with 1 if violations found)
+  staged             Scan only git staged files before commit
   json [path]        Output structured JSON findings for automation
   init-hook          Install native Git pre-commit hook into .git/hooks/
   -v, --version      Display current version
@@ -215,5 +220,6 @@ module.exports = {
   runAnalysis,
   runFix,
   runCLI,
+  runStaged,
   shouldIgnore
 };
