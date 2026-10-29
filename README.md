@@ -140,6 +140,17 @@ All 5 test suites passed cleanly with 0 failures!
 
 ---
 
+## 📄 Documentation
+
+- [Architecture & Specification](SPEC.md) - Full technical design, rule taxonomy, and QA gates.
+- [Visual Demonstration](docs/DEMO.md) - Before vs. after code comparison showing 48% LOC reduction.
+- [Pre-Commit Hook Guide](docs/PRE-COMMIT.md) - Native Git, Husky, and Python pre-commit setup.
+- [Contributing Guide](CONTRIBUTING.md) - Developer guidelines and zero-dependency principles.
+- [Security Policy](SECURITY.md) - Vulnerability disclosure and security contacts.
+- [Changelog](CHANGELOG.md) - Version release history and migration notes.
+
+---
+
 ## 📄 License
 
 MIT © [Dhani078](https://github.com/Dhani078)
